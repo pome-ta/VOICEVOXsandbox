@@ -6,8 +6,8 @@ const setRequest = (speakText) =>
 const callVOX = async (req) => {
   const res = await fetch(req);
   const json = await res.json();
-  console.log(json);
-  const zun = new Audio(json.mp3DownloadUrl);
+  const mp3 = await json.mp3DownloadUrl;
+  const zun = new Audio(mp3);
   zun.play();
 };
 
