@@ -7,13 +7,14 @@ const callVOX = async (req) => {
   const res = await fetch(req);
   const json = await res.json();
   const mp3 = await json.mp3DownloadUrl;
-  const zun = new Audio(mp3);
-  zun.play();
+  return mp3;
 };
 
 const startBtn = document.createElement('div');
-startBtn.addEventListener('click', () => {
-  callVOX(setRequest(hiraFuda[0]));
+startBtn.addEventListener('click', async () => {
+  const audioData = await callVOX(setRequest(hiraFuda[0]));
+  const zun = new Audio(audioData);
+  zun.play();
 });
 
 startBtn.style.width = '45px';
