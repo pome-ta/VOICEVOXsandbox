@@ -20,6 +20,7 @@ inputText.style.width = '100%';
 inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
+buttonWrap.style.marginTop = '2rem';
 buttonWrap.style.display = 'flex';
 buttonWrap.style.justifyContent = 'space-between';
 
@@ -43,6 +44,30 @@ document.body.appendChild(h2Header);
 document.body.appendChild(descriptioinPtag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
+
+const outText = document.createElement('p');
+document.body.appendChild(outText);
+
+sortOrderBtn.addEventListener('click', async () => {
+  const value = inputText.value;
+  const value_list = value.split(',').filter((n) => Number(n));
+  const adjstNum = value_list[0] + 1;
+  const fileName_str = adjstNum.toString().padStart(3, '0');
+  sound = await loadSound(audioctx, `${fileName_str}`);
+  const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
+  src.connect(audioctx.destination);
+  src.start();
+});
+
+async function loadSound(actx, fileName) {
+  const _uri = `./media/mp3/${fileName}.mp3`;
+  const res = await fetch(_uri);
+  const arraybuf = await res.arrayBuffer();
+  return actx.decodeAudioData(arraybuf);
+}
+
+const audioctx = new AudioContext();
+let sound = null;
 
 // const setRequest = (speakText) =>
 //   `https://api.tts.quest/v1/voicevox/?text=${speakText}&speaker=1`;
