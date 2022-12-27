@@ -1,18 +1,47 @@
 import { hiraFuda } from './yomifuda.js';
 
 const h1Header = document.createElement('h1');
-h1Header.textContent = 'ずんだもん 百人一首';
+h1Header.textContent = 'ずんだもん 百人一首 なのだ';
 
-const readLine = document.createElement('p');
-readLine.textContent =
-  'ずんだもんが百人一首を読むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。事情的にスマホサイズに最適化しているのだ。';
+const readLine01 = document.createElement('p');
+readLine01.textContent =
+  'ずんだもんが百人一首を読むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。';
+
+const readLine02 = document.createElement('p');
+readLine02.textContent =
+  '諸事情でスマホサイズに最適化しているのだ。';
 
 const h2Header = document.createElement('h2');
 h2Header.textContent = '使い方';
 
-const descriptioinPtag = document.createElement('p');
-descriptioinPtag.textContent =
-  '読んでほしい歌番号をするのだ。複数ある場合には「,」で区切るのだ。全部読むなら何も入力しなくていいのだ';
+
+
+
+
+
+
+const ulTag = document.createElement('ul');
+const liTexts = [
+  '読んでほしい歌番号を数字で入力するのだ。',
+  'たくさんあるなら「,」で区切るのだ。',
+  '全部読むなら何も入力しなくていいのだ。',
+]
+
+
+const create_liTags = (...textContents) => {
+  const liTags = textContents.map(text => {
+    const li = document.createElement('li');
+    li.textContent = text
+    return li
+  })
+  return liTags
+}
+
+const set_ul_li = (ul, lis) => lis.forEach(li => ul.appendChild(li))
+
+set_ul_li(ulTag, create_liTags(...liTexts))
+
+
 
 const inputText = document.createElement('input');
 inputText.placeholder = '1, 2, 12, 22';
@@ -28,20 +57,21 @@ const sortOrderBtn = document.createElement('button');
 sortOrderBtn.type = 'button';
 sortOrderBtn.style.width = '45%';
 sortOrderBtn.style.height = '4rem';
-sortOrderBtn.textContent = '順番に読むのだ';
+sortOrderBtn.textContent = '入力された順番に読むのだ';
 
 const randomOrderBtn = document.createElement('button');
 randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
-randomOrderBtn.textContent = 'ランダムに読むのだ';
+randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
 
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
 
 document.body.appendChild(h1Header);
-document.body.appendChild(readLine);
+document.body.appendChild(readLine01);
+document.body.appendChild(readLine02);
 document.body.appendChild(h2Header);
-document.body.appendChild(descriptioinPtag);
+document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
 
