@@ -5,39 +5,44 @@ h1Header.textContent = 'ずんだもん 百人一首';
 
 const readLine = document.createElement('p');
 readLine.textContent =
-  'ずんだもんが百人一首を詠むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。';
+  'ずんだもんが百人一首を読むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。事情的にスマホサイズに最適化しているのだ。';
 
 const h2Header = document.createElement('h2');
 h2Header.textContent = '使い方';
 
 const descriptioinPtag = document.createElement('p');
 descriptioinPtag.textContent =
-  '読んでほしい番号を入力。入力番号順に読み上げるなら、番号をランダムに読み上げるなら。100首分全部読み上げるのであれば、-1を入力してください。';
-
-const mainWrap = document.createElement('div');
-mainWrap.style.width = '100%';
-document.body.appendChild(mainWrap);
+  '読んでほしい歌番号をするのだ、複数ある場合には「,」で区切るのだ。全部読むなら「-1」と入れるのだ。';
 
 const inputText = document.createElement('input');
 inputText.placeholder = '1, 2, 12, 22';
 inputText.style.width = '100%';
 inputText.style.height = '2rem';
 
+const buttonWrap = document.createElement('div');
+buttonWrap.style.display = 'flex';
+buttonWrap.style.justifyContent = 'space-between';
+
 const sortOrderBtn = document.createElement('button');
 sortOrderBtn.type = 'button';
-sortOrderBtn.style.width = '100%';
-sortOrderBtn.style.height = '3rem';
-sortOrderBtn.textContent = 'hoge';
+sortOrderBtn.style.width = '45%';
+sortOrderBtn.style.height = '4rem';
+sortOrderBtn.textContent = '入力順に詠み上げ';
+
 const randomOrderBtn = document.createElement('button');
-randomOrderBtn.name = 'fuga';
+randomOrderBtn.style.width = '45%';
+randomOrderBtn.style.height = '4rem';
+randomOrderBtn.textContent = 'ランダムに読み上げ';
+
+buttonWrap.appendChild(sortOrderBtn);
+buttonWrap.appendChild(randomOrderBtn);
 
 document.body.appendChild(h1Header);
 document.body.appendChild(readLine);
 document.body.appendChild(h2Header);
 document.body.appendChild(descriptioinPtag);
 document.body.appendChild(inputText);
-document.body.appendChild(sortOrderBtn);
-document.body.appendChild(randomOrderBtn);
+document.body.appendChild(buttonWrap);
 
 // const setRequest = (speakText) =>
 //   `https://api.tts.quest/v1/voicevox/?text=${speakText}&speaker=1`;
