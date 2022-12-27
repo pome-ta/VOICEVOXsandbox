@@ -11,3 +11,7 @@
 [VOICEVOXsandbox](https://pome-ta.github.io/VOICEVOXsandbox/)
 
 https://pome-ta.github.io/VOICEVOXsandbox/
+
+### css reset
+
+[bootstrap/bootstrap-reboot.css at main · twbs/bootstrap](https://github.com/twbs/bootstrap/blob/main/dist/css/bootstrap-reboot.css)
