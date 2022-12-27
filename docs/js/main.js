@@ -2,6 +2,7 @@ import { hiraFuda } from './yomifuda.js';
 
 const h1Header = document.createElement('h1');
 h1Header.textContent = 'ずんだもん 百人一首 なのだ';
+h1Header.style.margin = '1rem 0'
 
 const readLine01 = document.createElement('p');
 readLine01.textContent =
@@ -13,12 +14,6 @@ readLine02.textContent =
 
 const h2Header = document.createElement('h2');
 h2Header.textContent = '使い方';
-
-
-
-
-
-
 
 const ulTag = document.createElement('ul');
 const liTexts = [
@@ -49,7 +44,7 @@ inputText.style.width = '100%';
 inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
-buttonWrap.style.marginTop = '2rem';
+buttonWrap.style.marginTop = '1rem';
 buttonWrap.style.display = 'flex';
 buttonWrap.style.justifyContent = 'space-between';
 
@@ -64,6 +59,23 @@ randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
 randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
 
+
+const footerTag = document.createElement('footer');
+footerTag.textContent='VOICEVOX:ずんだもん'
+
+footerTag.style.position = 'fixed'
+footerTag.style.bottom = 0
+footerTag.style.fontSize = '0.64rem'
+
+
+const aTag = document.createElement('a');
+aTag.href = 'https://voicevox.hiroshiba.jp/'
+aTag.textContent = 'https://voicevox.hiroshiba.jp/'
+
+
+footerTag.appendChild(aTag)
+
+
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
 
@@ -75,8 +87,17 @@ document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
 
+
+
+
 const outText = document.createElement('p');
 document.body.appendChild(outText);
+
+document.body.appendChild(footerTag);
+
+
+const audioctx = new AudioContext();
+
 
 let isPlay = false;
 sortOrderBtn.addEventListener('click', async () => {
@@ -181,7 +202,7 @@ async function callZundaMon(urls) {
 //   console.log(src);
 // });
 
-const audioctx = new AudioContext();
+
 
 //document.addEventListener(eventWrap.start, initAudioContext);
 
