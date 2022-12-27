@@ -6,6 +6,7 @@ const setRequest = (speakText) =>
 const callVOX = async (req) => {
   const res = await fetch(req);
   const json = await res.json();
+  console.log(json)
   const mp3 = await json.mp3DownloadUrl;
   return mp3;
 };
