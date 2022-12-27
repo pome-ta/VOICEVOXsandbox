@@ -12,7 +12,7 @@ h2Header.textContent = '使い方';
 
 const descriptioinPtag = document.createElement('p');
 descriptioinPtag.textContent =
-  '読んでほしい歌番号をするのだ、複数ある場合には「,」で区切るのだ。全部読むなら「-1」と入れるのだ。';
+  '読んでほしい歌番号をするのだ。複数ある場合には「,」で区切るのだ。全部読むなら何も入力しなくていいのだ';
 
 const inputText = document.createElement('input');
 inputText.placeholder = '1, 2, 12, 22';
@@ -28,12 +28,12 @@ const sortOrderBtn = document.createElement('button');
 sortOrderBtn.type = 'button';
 sortOrderBtn.style.width = '45%';
 sortOrderBtn.style.height = '4rem';
-sortOrderBtn.textContent = '入力順に詠み上げ';
+sortOrderBtn.textContent = '順番に読むのだ';
 
 const randomOrderBtn = document.createElement('button');
 randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
-randomOrderBtn.textContent = 'ランダムに読み上げ';
+randomOrderBtn.textContent = 'ランダムに読むのだ';
 
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
@@ -51,12 +51,19 @@ document.body.appendChild(outText);
 sortOrderBtn.addEventListener('click', async () => {
   const value = inputText.value;
   const value_list = value.split(',').filter((n) => Number(n));
-  const adjstNum = value_list[0] + 1;
+  const adjstNum = Number(value_list[0]);
   const fileName_str = adjstNum.toString().padStart(3, '0');
   sound = await loadSound(audioctx, `${fileName_str}`);
   const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
+  src.addEventListener('ended', async (event) => {
+    console.log('おわり');
+    sound = await loadSound(audioctx, `002`);
+    src.buffer = sound;
+    src.start();
+  });
   src.connect(audioctx.destination);
   src.start();
+  console.log(src);
 });
 
 async function loadSound(actx, fileName) {
@@ -67,6 +74,7 @@ async function loadSound(actx, fileName) {
 }
 
 const audioctx = new AudioContext();
+let src = null;
 let sound = null;
 
 // const setRequest = (speakText) =>
