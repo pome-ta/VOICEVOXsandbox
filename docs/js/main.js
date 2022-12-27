@@ -56,44 +56,82 @@ sortOrderBtn.addEventListener('click', async () => {
   if (!isPlay) {
     isPlay = true;
     const value = inputText.value;
-    const value_list = value.split(',').filter((n) => Number(n));
+    const _value_list = value.split(',').filter((n) => Number(n));
+    const value_list = _value_list.length
+      ? _value_list
+      : [...Array(100)].map((_, i) => i + 1);
     const rootPath = './media/mp3/';
-    const urls = value_list.map(
+    const url_list = value_list.map(
       (n) => `${rootPath}${n.toString().padStart(3, '0')}.mp3`
     );
-    const buffers = new Array(urls.length);
-    const sources = new Array(urls.length);
-    async function loadSample(actx, uri) {
-      const res = await fetch(uri);
-      const arraybuf = await res.arrayBuffer();
-      return actx.decodeAudioData(arraybuf);
-    }
-    const load = async (url, index) => {
-      buffers[index] = await loadSample(audioctx, url);
-    };
-    for (const [index, url] of urls.entries()) {
-      await load(url, index);
-    }
-    const t0 = audioctx.currentTime;
-    const interval = 8.5;
-    buffers.forEach((buffer, index) => {
-      const source = (sources[index] = audioctx.createBufferSource());
-      source.buffer = buffer;
-      source.connect(audioctx.destination);
-      const intervalIndex = interval * index;
-      const durationPlaybackRate = source.buffer.duration / 1;
-      const startTime = [t0 + intervalIndex, 0, durationPlaybackRate];
-      const stopTime = t0 + intervalIndex + durationPlaybackRate;
-      source.start(...startTime);
-      source.stop(stopTime);
-      source.addEventListener('ended', () => {
-        if (index === urls.length - 1) {
-          isPlay = false;
-        }
-      });
-    });
+    await callZundaMon(url_list);
   }
 });
+
+const shuffle = ([...array]) => {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+randomOrderBtn.addEventListener('click', async () => {
+  if (audioctx.state === 'suspended') {
+    audioctx.resume();
+  }
+  if (!isPlay) {
+    isPlay = true;
+    const value = inputText.value;
+    const _value_list = value.split(',').filter((n) => Number(n));
+    const value_list = _value_list.length
+      ? _value_list
+      : [...Array(100)].map((_, i) => i + 1);
+    const rootPath = './media/mp3/';
+    const _url_list = value_list.map(
+      (n) => `${rootPath}${n.toString().padStart(3, '0')}.mp3`
+    );
+    const url_list = shuffle(_url_list);
+    await callZundaMon(url_list);
+  }
+});
+
+async function callZundaMon(urls) {
+  const buffers = new Array(urls.length);
+  const sources = new Array(urls.length);
+  async function loadSample(actx, uri) {
+    const res = await fetch(uri);
+    const arraybuf = await res.arrayBuffer();
+    return actx.decodeAudioData(arraybuf);
+  }
+  const load = async (url, index) => {
+    buffers[index] = await loadSample(audioctx, url);
+  };
+  for (const [index, url] of urls.entries()) {
+    await load(url, index);
+  }
+  if (!buffers.length) {
+    isPlay = false;
+  }
+  const t0 = audioctx.currentTime;
+  const interval = 8.5;
+  buffers.forEach((buffer, index) => {
+    const source = (sources[index] = audioctx.createBufferSource());
+    source.buffer = buffer;
+    source.connect(audioctx.destination);
+    const intervalIndex = interval * index;
+    const durationPlaybackRate = source.buffer.duration / 1;
+    const startTime = [t0 + intervalIndex, 0, durationPlaybackRate];
+    const stopTime = t0 + intervalIndex + durationPlaybackRate;
+    source.start(...startTime);
+    source.stop(stopTime);
+    source.addEventListener('ended', () => {
+      if (index === urls.length - 1) {
+        isPlay = false;
+      }
+    });
+  });
+}
 
 // sortOrderBtn.addEventListener('click', async () => {
 //   const value = inputText.value;
