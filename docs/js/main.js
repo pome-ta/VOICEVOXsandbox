@@ -51,20 +51,43 @@ document.body.appendChild(outText);
 sortOrderBtn.addEventListener('click', async () => {
   const value = inputText.value;
   const value_list = value.split(',').filter((n) => Number(n));
-  const adjstNum = Number(value_list[0]);
-  const fileName_str = adjstNum.toString().padStart(3, '0');
-  sound = await loadSound(audioctx, `${fileName_str}`);
-  const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
-  src.addEventListener('ended', async (event) => {
-    console.log('おわり');
-    sound = await loadSound(audioctx, `002`);
-    src.buffer = sound;
-    src.start();
-  });
-  src.connect(audioctx.destination);
-  src.start();
-  console.log(src);
+  const rootPath = './media/mp3/';
+  const urls = value_list.map(
+    (n) => `${rootPath}${n.toString().padStart(3, '0')}.mp3`
+  );
+  const buffers = new Array(urls.length);
+  const sources = new Array(urls.length);
+  async function loadSample(actx, uri) {
+    const res = await fetch(uri);
+    const arraybuf = await res.arrayBuffer();
+    return actx.decodeAudioData(arraybuf);
+  }
+  const load = async (url, index) => {
+    buffers[index] = await loadSample(audioctx, url);
+  };
+  for (const [index, url] of urls.entries()) {
+    await load(url, index);
+  }
+  console.log(buffers);
 });
+
+// sortOrderBtn.addEventListener('click', async () => {
+//   const value = inputText.value;
+//   const value_list = value.split(',').filter((n) => Number(n));
+//   const adjstNum = Number(value_list[0]);
+//   const fileName_str = adjstNum.toString().padStart(3, '0');
+//   sound = await loadSound(audioctx, `${fileName_str}`);
+//   const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
+//   src.addEventListener('ended', async (event) => {
+//     console.log('おわり');
+//     sound = await loadSound(audioctx, `002`);
+//     src.buffer = sound;
+//     src.start();
+//   });
+//   src.connect(audioctx.destination);
+//   src.start();
+//   console.log(src);
+// });
 
 async function loadSound(actx, fileName) {
   const _uri = `./media/mp3/${fileName}.mp3`;
