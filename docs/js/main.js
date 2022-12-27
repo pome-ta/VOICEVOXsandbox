@@ -68,7 +68,20 @@ sortOrderBtn.addEventListener('click', async () => {
   for (const [index, url] of urls.entries()) {
     await load(url, index);
   }
-  console.log(buffers);
+  const t0 = audioctx.currentTime;
+  console.log(t0);
+  const interval = 8.5;
+  buffers.forEach((buffer, index) => {
+    const source = (sources[index] = audioctx.createBufferSource());
+    source.buffer = buffer;
+    source.connect(audioctx.destination);
+    const intervalIndex = interval * index;
+    const durationPlaybackRate = source.buffer.duration / 1;
+    const startTime = [t0 + intervalIndex, 0, durationPlaybackRate];
+    const stopTime = t0 + intervalIndex + durationPlaybackRate;
+    source.start(...startTime);
+    source.stop(stopTime);
+  });
 });
 
 // sortOrderBtn.addEventListener('click', async () => {
@@ -89,17 +102,7 @@ sortOrderBtn.addEventListener('click', async () => {
 //   console.log(src);
 // });
 
-async function loadSound(actx, fileName) {
-  const _uri = `./media/mp3/${fileName}.mp3`;
-  const res = await fetch(_uri);
-  const arraybuf = await res.arrayBuffer();
-  return actx.decodeAudioData(arraybuf);
-}
-
 const audioctx = new AudioContext();
-let src = null;
-let sound = null;
-
 // const setRequest = (speakText) =>
 //   `https://api.tts.quest/v1/voicevox/?text=${speakText}&speaker=1`;
 
