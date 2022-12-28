@@ -40,7 +40,7 @@ set_ul_li(ulTag, create_liTags(...liTexts));
 const inputText = document.createElement('input');
 inputText.placeholder = '1, 2, 12, 22';
 inputText.style.width = '100%';
-inputText.style.height = '2rem';
+// inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
 buttonWrap.style.margin = '1rem 0';
