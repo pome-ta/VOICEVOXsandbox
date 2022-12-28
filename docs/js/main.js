@@ -38,6 +38,7 @@ const set_ul_li = (ul, lis) => lis.forEach((li) => ul.appendChild(li));
 set_ul_li(ulTag, create_liTags(...liTexts));
 
 const inputText = document.createElement('input');
+inputText.type = 'search';
 inputText.placeholder = '1, 2, 12, 22';
 inputText.style.width = '100%';
 // inputText.style.height = '2rem';
