@@ -73,24 +73,29 @@ document.body.appendChild(buttonWrap);
 const create_table = (...utas) => {
   const tb = document.createElement('table');
   tb.style.margin = '1rem 0'
-  
+  tb.style.width = '100%';
+  //tb.style.height = '64px';
   
   utas.forEach((uta, index) => {
     const tr = document.createElement('tr');
-    tr.style.height = '1rem';
+    //tr.style.height = '1rem';
+    //tr.style.margin = '1rem'
     const tdNum = document.createElement('td');
+    //tdNum.style.width = '2rem';
     //tdNum.style.height = '1rem';
+    //tdNum.style.margin = '0 2rem';
     tdNum.style.fontSize = '0.64rem';
     tdNum.style.textAlign = 'right'
     tdNum.textContent = `${index + 1}`
     const tdUta = document.createElement('td');
+    //tdUta.style.height = '1rem';
     tdUta.style.fontSize = '0.64rem';
     tdUta.textContent = uta
     tr.appendChild(tdNum)
     tr.appendChild(tdUta)
     tb.appendChild(tr)
   })
-  tb.style.height = '100%';
+  
   return tb
 }
 
