@@ -74,9 +74,12 @@ const create_table = (...utas) => {
   const tb = document.createElement('table');
   tb.style.margin = '1rem 0'
   
+  
   utas.forEach((uta, index) => {
     const tr = document.createElement('tr');
+    tr.style.height = '1rem';
     const tdNum = document.createElement('td');
+    //tdNum.style.height = '1rem';
     tdNum.style.fontSize = '0.64rem';
     tdNum.style.textAlign = 'right'
     tdNum.textContent = `${index + 1}`
@@ -87,6 +90,7 @@ const create_table = (...utas) => {
     tr.appendChild(tdUta)
     tb.appendChild(tr)
   })
+  tb.style.height = '100%';
   return tb
 }
 
