@@ -41,7 +41,7 @@ const inputText = document.createElement('input');
 inputText.setAttribute('type', 'search');
 inputText.setAttribute('placeholder', '1, 2, 12, 43');
 inputText.style.width = '100%';
-inputText.style.background = '#86C166';
+inputText.style.background = '#86C16680';
 // inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
@@ -82,7 +82,7 @@ searchArea.classList.add('Light-table-filter');
 searchArea.setAttribute('type', 'search');
 searchArea.setAttribute('data-table', 'order-table');
 searchArea.setAttribute('placeholder', '検索');
-searchArea.style.background = '#86C166';
+searchArea.style.background = '#86C16680';
 searchArea.style.width = '100%';
 
 function inputTrigger(event) {
