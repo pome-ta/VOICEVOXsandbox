@@ -6,6 +6,8 @@
 
 [WEB版VOICEVOX API（低速）](https://voicevox.su-shiki.com/su-shikiapis/ttsquest/)
 
+[設定一覧](https://hitsuji-michi.github.io/zundamon-unofficialwiki/character-reference/)
+
 ## pages
 
 [VOICEVOXsandbox](https://pome-ta.github.io/VOICEVOXsandbox/)
