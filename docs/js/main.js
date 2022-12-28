@@ -91,15 +91,8 @@ const create_table = (...utas) => {
 
   utas.forEach((uta, index) => {
     const tr = document.createElement('tr');
-    tr.style.height = '1.8rem';
+    tr.style.height = '2rem';
     tr.style.fontSize = '0.64rem';
-
-    const checkBox = document.createElement('input');
-    checkBox.setAttribute('type', 'checkbox');
-    checkBox.setAttribute('name', 'num');
-    checkBox.setAttribute('value', `${index + 1}`);
-    const tdCheck = document.createElement('td');
-    tdCheck.appendChild(checkBox);
 
     const tdNum = document.createElement('td');
     tdNum.style.width = '1.2rem';
@@ -111,14 +104,30 @@ const create_table = (...utas) => {
     tdBar.style.width = '0.8rem';
     tdBar.textContent = '|';
 
-    const tdUta = document.createElement('td');
-    tdUta.style.margin = '0 1rem';
-    tdUta.textContent = uta;
+    const checkBox = document.createElement('input');
+    checkBox.setAttribute('type', 'checkbox');
+    checkBox.setAttribute('name', 'num');
+    checkBox.setAttribute('value', `${index + 1}`);
+    checkBox.style.margin = 0;
+    
+    const utaText = document.createElement('span');
+    //utaText.style.margin = '0 0.1rem';
+    utaText.style.margin = 0;
+    utaText.textContent = uta
+    
+    const labelCheck = document.createElement('label');
+    labelCheck.style.margin = 0;
+    labelCheck.appendChild(checkBox)
+    labelCheck.appendChild(utaText)
+    
+    const tdUtaCheck = document.createElement('td');
+    tdUtaCheck.style.margin = '0 1rem';
+    tdUtaCheck.appendChild(labelCheck)
 
     tr.appendChild(tdNum);
     // tr.appendChild(tdBar);
-    tr.appendChild(tdCheck);
-    tr.appendChild(tdUta);
+    //tr.appendChild(tdCheck);
+    tr.appendChild(tdUtaCheck);
     tb.appendChild(tr);
   });
 
