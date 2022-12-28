@@ -2,15 +2,14 @@ import { hiraFuda } from './yomifuda.js';
 
 const h1Header = document.createElement('h1');
 h1Header.textContent = 'ずんだもん 百人一首 なのだ';
-h1Header.style.margin = '1rem 0'
+h1Header.style.margin = '1rem 0';
 
 const readLine01 = document.createElement('p');
 readLine01.textContent =
   'ずんだもんが百人一首を読むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。';
 
 const readLine02 = document.createElement('p');
-readLine02.textContent =
-  '諸事情でスマホサイズに最適化しているのだ。';
+readLine02.textContent = '諸事情でスマホサイズに最適化しているのだ。';
 
 const h2Header = document.createElement('h2');
 h2Header.textContent = '使い方';
@@ -20,23 +19,20 @@ const liTexts = [
   '読んでほしい歌番号を数字で入力するのだ。',
   'たくさんあるなら「,」で区切るのだ。',
   '全部読むなら何も入力しなくていいのだ。',
-]
-
+];
 
 const create_liTags = (...textContents) => {
-  const liTags = textContents.map(text => {
+  const liTags = textContents.map((text) => {
     const li = document.createElement('li');
-    li.textContent = text
-    return li
-  })
-  return liTags
-}
+    li.textContent = text;
+    return li;
+  });
+  return liTags;
+};
 
-const set_ul_li = (ul, lis) => lis.forEach(li => ul.appendChild(li))
+const set_ul_li = (ul, lis) => lis.forEach((li) => ul.appendChild(li));
 
-set_ul_li(ulTag, create_liTags(...liTexts))
-
-
+set_ul_li(ulTag, create_liTags(...liTexts));
 
 const inputText = document.createElement('input');
 inputText.placeholder = '1, 2, 12, 22';
@@ -59,22 +55,18 @@ randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
 randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
 
-
 const footerTag = document.createElement('footer');
-footerTag.textContent='VOICEVOX:ずんだもん'
+footerTag.textContent = 'VOICEVOX:ずんだもん';
 
-footerTag.style.position = 'fixed'
-footerTag.style.bottom = 0
-footerTag.style.fontSize = '0.64rem'
-
+footerTag.style.position = 'fixed';
+footerTag.style.bottom = 0;
+footerTag.style.fontSize = '0.64rem';
 
 const aTag = document.createElement('a');
-aTag.href = 'https://voicevox.hiroshiba.jp/'
-aTag.textContent = 'https://voicevox.hiroshiba.jp/'
+aTag.href = 'https://voicevox.hiroshiba.jp/';
+aTag.textContent = 'https://voicevox.hiroshiba.jp/';
 
-
-footerTag.appendChild(aTag)
-
+footerTag.appendChild(aTag);
 
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
@@ -87,17 +79,12 @@ document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
 
-
-
-
 const outText = document.createElement('p');
 document.body.appendChild(outText);
 
 document.body.appendChild(footerTag);
 
-
 const audioctx = new AudioContext();
-
 
 let isPlay = false;
 sortOrderBtn.addEventListener('click', async () => {
@@ -183,69 +170,3 @@ async function callZundaMon(urls) {
     });
   });
 }
-
-// sortOrderBtn.addEventListener('click', async () => {
-//   const value = inputText.value;
-//   const value_list = value.split(',').filter((n) => Number(n));
-//   const adjstNum = Number(value_list[0]);
-//   const fileName_str = adjstNum.toString().padStart(3, '0');
-//   sound = await loadSound(audioctx, `${fileName_str}`);
-//   const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
-//   src.addEventListener('ended', async (event) => {
-//     console.log('おわり');
-//     sound = await loadSound(audioctx, `002`);
-//     src.buffer = sound;
-//     src.start();
-//   });
-//   src.connect(audioctx.destination);
-//   src.start();
-//   console.log(src);
-// });
-
-
-
-//document.addEventListener(eventWrap.start, initAudioContext);
-
-// const setRequest = (speakText) =>
-//   `https://api.tts.quest/v1/voicevox/?text=${speakText}&speaker=1`;
-
-// const callVOX = async (req) => {
-//   const res = await fetch(req);
-//   const json = await res.json();
-//   console.log(json.mp3DownloadUrl);
-//   const mp3 = await json.mp3DownloadUrl;
-//   return mp3;
-// };
-
-// window.addEventListener('load', async () => {
-//   sound = await loadSample(audioctx, soundPath);
-// });
-
-// const sleep = (waitTime) =>
-//   new Promise((resolve) => setTimeout(resolve, waitTime));
-// async function loadSample(actx, uri) {
-//   const res = await fetch(uri);
-//   const arraybuf = await res.arrayBuffer();
-//   await sleep(3000);
-//   return actx.decodeAudioData(arraybuf);
-// }
-
-// const soundPath = './media/mp3/001.mp3';
-// const audioctx = new AudioContext();
-// let sound = null;
-
-// const startBtn = document.createElement('div');
-// startBtn.addEventListener('click', async () => {
-//   const audioData = await callVOX(setRequest(hiraFuda[2]));
-//   const zun = new Audio(audioData);
-//   zun.play();
-
-//   // const src = new AudioBufferSourceNode(audioctx, { buffer: sound });
-//   // src.connect(audioctx.destination);
-//   // src.start();
-// });
-
-// startBtn.style.width = '45px';
-// startBtn.style.height = '45px';
-
-// document.body.appendChild(startBtn);
