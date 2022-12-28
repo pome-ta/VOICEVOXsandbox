@@ -3,6 +3,7 @@ import { hiraFuda } from './yomifuda.js';
 /**
  * DOM
  */
+
 const h1Header = document.createElement('h1');
 h1Header.textContent = 'ずんだもん 百人一首 なのだ';
 h1Header.style.margin = '1rem 0';
@@ -16,36 +17,12 @@ const readLine02 = document.createElement('p');
 readLine02.style.fontSize = '0.64rem';
 readLine02.textContent = '諸事情でスマホサイズに最適化しているのだ。';
 
-const h2Header = document.createElement('h2');
-h2Header.textContent = '使い方なのだ';
-
-const ulTag = document.createElement('ul');
-const liTexts = [
-  '読んでほしい歌番号を数字で入力するのだ。',
-  'たくさんあるなら「,」で区切るのだ。',
-  '全部読むなら何も入力しなくていいのだ。',
-  '下の検索エリアで検索することもできるのだ。',
-];
-
-const create_liTags = (...textContents) => {
-  const liTags = textContents.map((text) => {
-    const li = document.createElement('li');
-    li.textContent = text;
-    return li;
-  });
-  return liTags;
-};
-
-const set_ul_li = (ul, lis) => lis.forEach((li) => ul.appendChild(li));
-
-set_ul_li(ulTag, create_liTags(...liTexts));
-
+/** 百人一首選択エリア */
 const inputText = document.createElement('input');
 inputText.setAttribute('type', 'search');
 inputText.setAttribute('placeholder', '1, 2, 12, 43');
 inputText.style.width = '100%';
 inputText.style.background = '#86C16680';
-// inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
 buttonWrap.style.margin = '1rem 0';
@@ -69,17 +46,36 @@ const btnTexts = ['入力された順番に読むのだ', 'ランダムな順番
 
 const [sortOrderBtn, randomOrderBtn] = create_button('45%', ...btnTexts);
 
+/** 使い方エリア */
+const h2Header = document.createElement('h2');
+h2Header.textContent = '使い方なのだ';
+
+const ulTag = document.createElement('ul');
+const liTexts = [
+  '読んでほしい歌番号を数字で入力するのだ。',
+  'たくさんあるなら「,」で区切るのだ。',
+  '全部読むなら何も入力しなくていいのだ。',
+  '下の検索エリアで探することもできるのだ。',
+];
+
+/**　説明箇条書き */
+const create_liTags = (...textContents) => {
+  const liTags = textContents.map((text) => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    return li;
+  });
+  return liTags;
+};
+
+/** 箇条書きはガッちゃんこ */
+const set_ul_li = (ul, lis) => lis.forEach((li) => ul.appendChild(li));
+set_ul_li(ulTag, create_liTags(...liTexts));
+
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
 
-document.body.appendChild(h1Header);
-document.body.appendChild(readLine01);
-document.body.appendChild(readLine02);
-document.body.appendChild(inputText);
-document.body.appendChild(buttonWrap);
-document.body.appendChild(h2Header);
-document.body.appendChild(ulTag);
-
+/** テーブル作成 */
 const create_table = (...utas) => {
   const tbl = document.createElement('table');
   tbl.classList.add('order-table');
@@ -104,7 +100,6 @@ const create_table = (...utas) => {
     const tdNum = document.createElement('td');
     tdNum.style.width = '1.2rem';
     tdNum.style.textAlign = 'right';
-    // tdNum.textContent = `${index + 1}`;
     tdNum.appendChild(labelNum);
 
     const tdBar = document.createElement('td');
@@ -119,18 +114,12 @@ const create_table = (...utas) => {
     checkBox.style.width = '0.5rem';
     checkBox.style.height = '0.5rem';
     checkBox.style.margin = '0.5rem 0.25rem';
-    // checkBox.textContent = uta;
 
     const utaText = document.createElement('span');
-    // const utaText = document.createTextNode(uta)
-    // utaText.style.verticalAlign = 'center';
-    // utaText.style.margin = 0;
     utaText.textContent = uta;
 
     const labelCheck = document.createElement('label');
     labelCheck.style.cursor = 'pointer';
-    // labelCheck.style.margin = 0;
-    // labelCheck.textContent = uta;
     labelCheck.appendChild(checkBox);
     labelCheck.appendChild(utaText);
 
@@ -139,8 +128,6 @@ const create_table = (...utas) => {
     tdUtaCheck.appendChild(labelCheck);
 
     tr.appendChild(tdNum);
-    // tr.appendChild(tdBar);
-    //tr.appendChild(tdCheck);
     tr.appendChild(tdUtaCheck);
     tb.appendChild(tr);
   });
@@ -150,8 +137,7 @@ const create_table = (...utas) => {
 
 const fudaTable = create_table(...hiraFuda);
 
-document.body.appendChild(fudaTable);
-
+/** フッターと検索エリア */
 const footerTag = document.createElement('footer');
 footerTag.style.position = 'fixed';
 footerTag.style.bottom = 0;
@@ -209,7 +195,21 @@ credit.appendChild(aTag);
 
 footerTag.appendChild(searchArea);
 footerTag.appendChild(credit);
-// footerTag.appendChild(aTag);
+
+/** append まつり */
+
+document.body.appendChild(h1Header);
+document.body.appendChild(readLine01);
+document.body.appendChild(readLine02);
+
+document.body.appendChild(inputText);
+document.body.appendChild(buttonWrap);
+
+document.body.appendChild(h2Header);
+document.body.appendChild(ulTag);
+
+document.body.appendChild(fudaTable);
+
 document.body.appendChild(footerTag);
 
 /**
