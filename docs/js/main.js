@@ -5,20 +5,23 @@ h1Header.textContent = 'ずんだもん 百人一首 なのだ';
 h1Header.style.margin = '1rem 0';
 
 const readLine01 = document.createElement('p');
+readLine01.style.fontSize = '0.8rem';
 readLine01.textContent =
   'ずんだもんが百人一首を読むのだ。発音やイントネーションが違うかもしれないのだ。ゆるしてほしいのだ。';
 
 const readLine02 = document.createElement('p');
+readLine02.style.fontSize = '0.64rem';
 readLine02.textContent = '諸事情でスマホサイズに最適化しているのだ。';
 
 const h2Header = document.createElement('h2');
-h2Header.textContent = '使い方';
+h2Header.textContent = '使い方なのだ';
 
 const ulTag = document.createElement('ul');
 const liTexts = [
   '読んでほしい歌番号を数字で入力するのだ。',
   'たくさんあるなら「,」で区切るのだ。',
   '全部読むなら何も入力しなくていいのだ。',
+  '下の検索エリアで検索することもできるのだ。',
 ];
 
 const create_liTags = (...textContents) => {
@@ -40,20 +43,26 @@ inputText.style.width = '100%';
 inputText.style.height = '2rem';
 
 const buttonWrap = document.createElement('div');
-buttonWrap.style.marginTop = '1rem';
+buttonWrap.style.margin = '1rem 0';
 buttonWrap.style.display = 'flex';
 buttonWrap.style.justifyContent = 'space-between';
 
-const sortOrderBtn = document.createElement('button');
-sortOrderBtn.type = 'button';
-sortOrderBtn.style.width = '45%';
-sortOrderBtn.style.height = '4rem';
-sortOrderBtn.textContent = '入力された順番に読むのだ';
+const create_button = (width, ...textContents) => {
+  const btns = textContents.map((text) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.style.width = width;
+    btn.style.height = '4rem';
+    btn.style.fontSize = '0.72rem';
+    btn.textContent = text;
+    return btn;
+  });
+  return btns;
+};
 
-const randomOrderBtn = document.createElement('button');
-randomOrderBtn.style.width = '45%';
-randomOrderBtn.style.height = '4rem';
-randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
+const btnTexts = ['入力された順番に読むのだ', 'ランダムな順番で読むのだ'];
+
+const [sortOrderBtn, randomOrderBtn] = create_button('45%', ...btnTexts);
 
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
@@ -61,38 +70,74 @@ buttonWrap.appendChild(randomOrderBtn);
 document.body.appendChild(h1Header);
 document.body.appendChild(readLine01);
 document.body.appendChild(readLine02);
-document.body.appendChild(h2Header);
-document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
+document.body.appendChild(h2Header);
+document.body.appendChild(ulTag);
+
+const searchArea = document.createElement('input');
+searchArea.classList.add('Light-table-filter');
+searchArea.setAttribute('type', 'search');
+searchArea.setAttribute('data-table', 'order-table');
+searchArea.setAttribute('placeholder', '検索');
+searchArea.style.width = '100%';
+
+function inputTrigger(event) {
+  const target = event.target;
+  const searchStr = target.value.toLowerCase();
+  const searchFilter = (row) => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = ~text.indexOf(searchStr) ? 'table-row' : 'none';
+  };
+  const tables = document.getElementsByClassName(
+    target.getAttribute('data-table')
+  );
+
+  Array.from(tables).forEach((table) =>
+    Array.from(table.tBodies).forEach((tbody) =>
+      Array.from(tbody.rows).forEach((row) => searchFilter(row))
+    )
+  );
+}
+searchArea.addEventListener('input', inputTrigger);
+
+document.body.appendChild(searchArea);
 
 const create_table = (...utas) => {
-  const tb = document.createElement('table');
-  tb.style.margin = '1rem 0';
-  tb.style.width = '100%';
-  //tb.style.height = '64px';
+  const tbl = document.createElement('table');
+  tbl.classList.add('order-table');
+  tbl.style.width = '100%';
+  tbl.style.margin = '1rem 0';
+
+  const tb = document.createElement('tbody');
+  tbl.appendChild(tb);
 
   utas.forEach((uta, index) => {
     const tr = document.createElement('tr');
-    //tr.style.height = '1rem';
-    //tr.style.margin = '1rem'
+    tr.style.height = '1.8rem';
+    tr.style.fontSize = '0.64rem';
+
     const tdNum = document.createElement('td');
-    //tdNum.style.width = '2rem';
-    //tdNum.style.height = '1rem';
-    //tdNum.style.margin = '0 2rem';
-    tdNum.style.fontSize = '0.64rem';
+    tdNum.style.width = '1.2rem';
     tdNum.style.textAlign = 'right';
     tdNum.textContent = `${index + 1}`;
+
+    const tdBar = document.createElement('td');
+    tdBar.style.textAlign = 'center';
+    tdBar.style.width = '0.8rem';
+    tdBar.textContent = '|';
+
     const tdUta = document.createElement('td');
-    //tdUta.style.height = '1rem';
-    tdUta.style.fontSize = '0.64rem';
+    tdUta.style.margin = '0 1rem';
     tdUta.textContent = uta;
+
     tr.appendChild(tdNum);
+    tr.appendChild(tdBar);
     tr.appendChild(tdUta);
     tb.appendChild(tr);
   });
 
-  return tb;
+  return tbl;
 };
 
 const fudaTable = create_table(...hiraFuda);
