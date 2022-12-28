@@ -55,8 +55,6 @@ randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
 randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
 
-
-
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
 
@@ -68,14 +66,12 @@ document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
 
-
-
 const create_table = (...utas) => {
   const tb = document.createElement('table');
-  tb.style.margin = '1rem 0'
+  tb.style.margin = '1rem 0';
   tb.style.width = '100%';
   //tb.style.height = '64px';
-  
+
   utas.forEach((uta, index) => {
     const tr = document.createElement('tr');
     //tr.style.height = '1rem';
@@ -85,25 +81,23 @@ const create_table = (...utas) => {
     //tdNum.style.height = '1rem';
     //tdNum.style.margin = '0 2rem';
     tdNum.style.fontSize = '0.64rem';
-    tdNum.style.textAlign = 'right'
-    tdNum.textContent = `${index + 1}`
+    tdNum.style.textAlign = 'right';
+    tdNum.textContent = `${index + 1}`;
     const tdUta = document.createElement('td');
     //tdUta.style.height = '1rem';
     tdUta.style.fontSize = '0.64rem';
-    tdUta.textContent = uta
-    tr.appendChild(tdNum)
-    tr.appendChild(tdUta)
-    tb.appendChild(tr)
-  })
-  
-  return tb
-}
+    tdUta.textContent = uta;
+    tr.appendChild(tdNum);
+    tr.appendChild(tdUta);
+    tb.appendChild(tr);
+  });
 
-const fudaTable = create_table(...hiraFuda)
+  return tb;
+};
+
+const fudaTable = create_table(...hiraFuda);
 
 document.body.appendChild(fudaTable);
-
-
 
 const footerTag = document.createElement('footer');
 footerTag.textContent = 'VOICEVOX:ずんだもん';
