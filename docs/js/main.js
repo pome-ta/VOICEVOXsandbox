@@ -55,18 +55,7 @@ randomOrderBtn.style.width = '45%';
 randomOrderBtn.style.height = '4rem';
 randomOrderBtn.textContent = 'ランダムな順番で読むのだ';
 
-const footerTag = document.createElement('footer');
-footerTag.textContent = 'VOICEVOX:ずんだもん';
 
-footerTag.style.position = 'fixed';
-footerTag.style.bottom = 0;
-footerTag.style.fontSize = '0.64rem';
-
-const aTag = document.createElement('a');
-aTag.href = 'https://voicevox.hiroshiba.jp/';
-aTag.textContent = 'https://voicevox.hiroshiba.jp/';
-
-footerTag.appendChild(aTag);
 
 buttonWrap.appendChild(sortOrderBtn);
 buttonWrap.appendChild(randomOrderBtn);
@@ -79,9 +68,46 @@ document.body.appendChild(ulTag);
 document.body.appendChild(inputText);
 document.body.appendChild(buttonWrap);
 
-const outText = document.createElement('p');
-document.body.appendChild(outText);
 
+
+const create_table = (...utas) => {
+  const tb = document.createElement('table');
+  tb.style.margin = '1rem 0'
+  
+  utas.forEach((uta, index) => {
+    const tr = document.createElement('tr');
+    const tdNum = document.createElement('td');
+    tdNum.style.fontSize = '0.64rem';
+    tdNum.style.textAlign = 'right'
+    tdNum.textContent = `${index + 1}`
+    const tdUta = document.createElement('td');
+    tdUta.style.fontSize = '0.64rem';
+    tdUta.textContent = uta
+    tr.appendChild(tdNum)
+    tr.appendChild(tdUta)
+    tb.appendChild(tr)
+  })
+  return tb
+}
+
+const fudaTable = create_table(...hiraFuda)
+
+document.body.appendChild(fudaTable);
+
+
+
+const footerTag = document.createElement('footer');
+footerTag.textContent = 'VOICEVOX:ずんだもん';
+
+footerTag.style.position = 'fixed';
+footerTag.style.bottom = 0;
+footerTag.style.fontSize = '0.64rem';
+
+const aTag = document.createElement('a');
+aTag.href = 'https://voicevox.hiroshiba.jp/';
+aTag.textContent = 'https://voicevox.hiroshiba.jp/';
+
+footerTag.appendChild(aTag);
 document.body.appendChild(footerTag);
 
 const audioctx = new AudioContext();
