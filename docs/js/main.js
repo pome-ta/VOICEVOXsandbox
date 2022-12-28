@@ -80,14 +80,77 @@ document.body.appendChild(buttonWrap);
 document.body.appendChild(h2Header);
 document.body.appendChild(ulTag);
 
+const create_table = (...utas) => {
+  const tbl = document.createElement('table');
+  tbl.classList.add('order-table');
+  tbl.style.width = '100%';
+  tbl.style.margin = '1rem 0 8rem 0';
+
+  const tb = document.createElement('tbody');
+  tbl.appendChild(tb);
+
+  utas.forEach((uta, index) => {
+    const tr = document.createElement('tr');
+    tr.style.height = '1.8rem';
+    tr.style.fontSize = '0.64rem';
+
+    const checkBox = document.createElement('input');
+    checkBox.setAttribute('type', 'checkbox');
+    checkBox.setAttribute('name', 'num');
+    checkBox.setAttribute('value', `${index + 1}`);
+    const tdCheck = document.createElement('td');
+    tdCheck.appendChild(checkBox);
+
+    const tdNum = document.createElement('td');
+    tdNum.style.width = '1.2rem';
+    tdNum.style.textAlign = 'right';
+    tdNum.textContent = `${index + 1}`;
+
+    const tdBar = document.createElement('td');
+    tdBar.style.textAlign = 'center';
+    tdBar.style.width = '0.8rem';
+    tdBar.textContent = '|';
+
+    const tdUta = document.createElement('td');
+    tdUta.style.margin = '0 1rem';
+    tdUta.textContent = uta;
+
+    tr.appendChild(tdNum);
+    // tr.appendChild(tdBar);
+    tr.appendChild(tdCheck);
+    tr.appendChild(tdUta);
+    tb.appendChild(tr);
+  });
+
+  return tbl;
+};
+
+const fudaTable = create_table(...hiraFuda);
+
+document.body.appendChild(fudaTable);
+
+const footerTag = document.createElement('footer');
+footerTag.style.position = 'fixed';
+footerTag.style.bottom = 0;
+footerTag.style.left = 0;
+footerTag.style.right = 0;
+footerTag.style.fontSize = '0.64rem';
+footerTag.style.background = '#f8f8f8';
+footerTag.style.display = 'flex';
+footerTag.style.flexDirection = 'column';
+footerTag.style.justifyContent = 'center';
+footerTag.style.height = '6rem';
+
 const searchArea = document.createElement('input');
 searchArea.classList.add('Light-table-filter');
 searchArea.setAttribute('type', 'search');
 searchArea.setAttribute('data-table', 'order-table');
 searchArea.setAttribute('placeholder', '検索');
 searchArea.style.background = '#86C16680';
+searchArea.style.maxWidth = '360px';
 searchArea.style.width = '100%';
 searchArea.style.height = '2rem';
+searchArea.style.margin = '0 auto';
 
 function inputTrigger(event) {
   const target = event.target;
@@ -108,60 +171,11 @@ function inputTrigger(event) {
 }
 searchArea.addEventListener('input', inputTrigger);
 
-// document.body.appendChild(searchArea);
-
-const create_table = (...utas) => {
-  const tbl = document.createElement('table');
-  tbl.classList.add('order-table');
-  tbl.style.width = '100%';
-  tbl.style.margin = '1rem 0 4rem 0';
-
-  const tb = document.createElement('tbody');
-  tbl.appendChild(tb);
-
-  utas.forEach((uta, index) => {
-    const tr = document.createElement('tr');
-    tr.style.height = '1.8rem';
-    tr.style.fontSize = '0.64rem';
-
-    const tdNum = document.createElement('td');
-    tdNum.style.width = '1.2rem';
-    tdNum.style.textAlign = 'right';
-    tdNum.textContent = `${index + 1}`;
-
-    const tdBar = document.createElement('td');
-    tdBar.style.textAlign = 'center';
-    tdBar.style.width = '0.8rem';
-    tdBar.textContent = '|';
-
-    const tdUta = document.createElement('td');
-    tdUta.style.margin = '0 1rem';
-    tdUta.textContent = uta;
-
-    tr.appendChild(tdNum);
-    tr.appendChild(tdBar);
-    tr.appendChild(tdUta);
-    tb.appendChild(tr);
-  });
-
-  return tbl;
-};
-
-const fudaTable = create_table(...hiraFuda);
-
-document.body.appendChild(fudaTable);
-
-const footerTag = document.createElement('footer');
-footerTag.style.position = 'fixed';
-footerTag.style.bottom = 0;
-footerTag.style.left = 0;
-footerTag.style.right = 0;
-footerTag.style.fontSize = '0.64rem';
-footerTag.style.background = '#fff';
-
 const credit = document.createElement('p');
 credit.textContent = 'VOICEVOX:ずんだもん';
-credit.style.margin = '0.5rem 0';
+// credit.style.margin = '0.5rem 0';
+credit.style.margin = '0.8rem auto 0';
+credit.style.maxWidth = '360px';
 
 const aTag = document.createElement('a');
 aTag.style.margin = '0 0 0 1rem';
