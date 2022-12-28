@@ -1,5 +1,8 @@
 import { hiraFuda } from './yomifuda.js';
 
+/**
+ * DOM
+ */
 const h1Header = document.createElement('h1');
 h1Header.textContent = 'ずんだもん 百人一首 なのだ';
 h1Header.style.margin = '1rem 0';
@@ -84,6 +87,7 @@ searchArea.setAttribute('data-table', 'order-table');
 searchArea.setAttribute('placeholder', '検索');
 searchArea.style.background = '#86C16680';
 searchArea.style.width = '100%';
+searchArea.style.height = '2rem';
 
 function inputTrigger(event) {
   const target = event.target;
@@ -104,13 +108,13 @@ function inputTrigger(event) {
 }
 searchArea.addEventListener('input', inputTrigger);
 
-document.body.appendChild(searchArea);
+// document.body.appendChild(searchArea);
 
 const create_table = (...utas) => {
   const tbl = document.createElement('table');
   tbl.classList.add('order-table');
   tbl.style.width = '100%';
-  tbl.style.margin = '1rem 0';
+  tbl.style.margin = '1rem 0 4rem 0';
 
   const tb = document.createElement('tbody');
   tbl.appendChild(tb);
@@ -148,18 +152,32 @@ const fudaTable = create_table(...hiraFuda);
 document.body.appendChild(fudaTable);
 
 const footerTag = document.createElement('footer');
-footerTag.textContent = 'VOICEVOX:ずんだもん';
-
 footerTag.style.position = 'fixed';
 footerTag.style.bottom = 0;
+footerTag.style.left = 0;
+footerTag.style.right = 0;
 footerTag.style.fontSize = '0.64rem';
+footerTag.style.background = '#fff';
+
+const credit = document.createElement('p');
+credit.textContent = 'VOICEVOX:ずんだもん';
+credit.style.margin = '0.5rem 0';
 
 const aTag = document.createElement('a');
+aTag.style.margin = '0 0 0 1rem';
 aTag.href = 'https://voicevox.hiroshiba.jp/';
 aTag.textContent = 'https://voicevox.hiroshiba.jp/';
 
-footerTag.appendChild(aTag);
+credit.appendChild(aTag);
+
+footerTag.appendChild(searchArea);
+footerTag.appendChild(credit);
+// footerTag.appendChild(aTag);
 document.body.appendChild(footerTag);
+
+/**
+ * audio
+ */
 
 const audioctx = new AudioContext();
 
