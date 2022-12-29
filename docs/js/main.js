@@ -114,6 +114,7 @@ const create_table = (...utas) => {
     checkBox.style.width = '0.5rem';
     checkBox.style.height = '0.5rem';
     checkBox.style.margin = '0.5rem 0.25rem';
+    checkBox.addEventListener('change', getCheckValue);
 
     const utaText = document.createElement('span');
     utaText.textContent = uta;
@@ -182,7 +183,6 @@ searchArea.addEventListener('input', inputTrigger);
 
 const credit = document.createElement('p');
 credit.textContent = 'VOICEVOX:ずんだもん';
-// credit.style.margin = '0.5rem 0';
 credit.style.margin = '0.8rem auto 0';
 credit.style.maxWidth = '360px';
 
@@ -211,6 +211,20 @@ document.body.appendChild(ulTag);
 document.body.appendChild(fudaTable);
 
 document.body.appendChild(footerTag);
+
+/**
+ * select event
+ */
+
+let selectArray = new Array();
+
+function getCheckValue(event) {
+  const box = event.target;
+  if (box.checked) {
+    const value = `${box.value}, `;
+    inputText.value += value;
+  }
+}
 
 /**
  * audio
