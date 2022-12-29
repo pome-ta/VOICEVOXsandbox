@@ -150,6 +150,16 @@ memoParagraph.style.fontSize = '0.8rem';
 memoParagraph.textContent = 'エラーや改善イメージなど、とりあえず書き落とすところなのだ。'
 
 
+const errorRec = document.createElement('h4');
+errorRec.textContent = 'エラーや不備'
+
+
+
+
+
+
+
+//document.body.appendChild(errorRec);
 
 
 const marginBuffer = document.createElement('div');
