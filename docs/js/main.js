@@ -82,7 +82,7 @@ const create_table = (...utas) => {
   const tbl = document.createElement('table');
   tbl.classList.add('order-table');
   tbl.style.width = '100%';
-  tbl.style.margin = '1rem 0 8rem 0';
+  tbl.style.margin = '1rem 0';
 
   const tb = document.createElement('tbody');
   tbl.appendChild(tb);
@@ -137,6 +137,24 @@ const create_table = (...utas) => {
 
   return tbl;
 };
+
+
+/**　メモ書き */
+
+const memo = document.createElement('h3');
+memo.textContent = '📝 todo なのだ';
+
+const memoParagraph = document.createElement('p');
+memoParagraph.style.fontSize = '0.8rem';
+
+memoParagraph.textContent = 'エラーや改善イメージなど、とりあえず書き落とすところなのだ。'
+
+
+
+
+const marginBuffer = document.createElement('div');
+marginBuffer.style.width = '100%';
+marginBuffer.style.height = '8rem';
 
 const fudaTable = create_table(...hiraFuda);
 
@@ -211,6 +229,12 @@ document.body.appendChild(h2Header);
 document.body.appendChild(ulTag);
 
 document.body.appendChild(fudaTable);
+
+document.body.appendChild(memo);
+document.body.appendChild(memoParagraph);
+
+document.body.appendChild(marginBuffer);
+
 
 document.body.appendChild(footerTag);
 
